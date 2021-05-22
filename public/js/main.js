@@ -8,8 +8,6 @@ const { username, room } = Qs.parse(location.search, {
     ignoreQueryPrefix: true
 })
 
-
-
 socket.on('message', message => {
     console.log(message);
     outputMessage(message);
