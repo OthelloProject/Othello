@@ -54,6 +54,4 @@ io.on('connection', socket => {
 
 app.use(express.static(path.join(__dirname, 'public')))
 
-let port = 3000 || process.env.PORT;
-
-server.listen(port, () => console.log(chalk.green(`Server is running` + chalk.red`\nPORT: ${port}` + chalk.magenta`\nTIME: ${date}`)));
+server.listen(console.log(chalk.green(`Server is running` + chalk.red`\nPORT: ${port}` + chalk.magenta`\nTIME: ${date}`)));
