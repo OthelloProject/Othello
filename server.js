@@ -54,4 +54,4 @@ io.on('connection', socket => {
 
 app.use(express.static(path.join(__dirname, 'public')))
 
-server.listen(console.log(chalk.green(`Server is running` + chalk.red`\nPORT: ${port}` + chalk.magenta`\nTIME: ${date}`)));
+server.listen(console.log(chalk.green(`Server is running` + chalk.red`\nPORT:` + chalk.magenta`\nTIME: ${date}`)));
