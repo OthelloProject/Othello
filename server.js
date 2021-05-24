@@ -4,7 +4,7 @@ const chalk = require('chalk');
 const express = require("express");
 const socketio = require('socket.io');
 const formatMessage = require('./utils/messages')
-const { userJoin, getcurrentuser, userLeave, getRoomUsers } = require('./utils/users');
+const { userJoin, getCurrentUser, userLeave, getRoomUsers } = require('./utils/users');
 
 let date = new Date();
 
@@ -32,7 +32,7 @@ io.on('connection', socket => {
     });
 
     socket.on('chatMessage', msg => {
-        const user = getcurrentuser(socket.id);
+        const user = getCurrentUser(socket.id);
         io.emit('message', formatMessage(user.username, msg));
     })
 
@@ -54,6 +54,6 @@ io.on('connection', socket => {
 
 app.use(express.static(path.join(__dirname, 'public')))
 
-let port = process.env.PORT;
+let port = process.env.PORT || 3000;
 
 server.listen(port, () => console.log(chalk.green(`Server is running` + chalk.red`\nPORT: ${port}` + chalk.magenta`\nTIME: ${date}`)));

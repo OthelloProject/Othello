@@ -1,11 +1,9 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+@import url("https://fonts.googleapis.com/css?family=Roboto&display=swap");
 
 :root {
-	--dark-color-a: #667aff;
-	--dark-color-b: #7386ff;
-	--light-color: #e6e9ff;
 	--success-color: #5cb85c;
 	--error-color: #d9534f;
+	--not-quite-dark: white;
 }
 
 * {
@@ -15,9 +13,8 @@
 }
 
 body {
-	font-family: 'Roboto', sans-serif;
 	font-size: 16px;
-	background: var(--light-color);
+	background: var(--not-quite-dark);
 	margin: 20px;
 }
 
@@ -32,8 +29,6 @@ a {
 .btn {
 	cursor: pointer;
 	padding: 5px 15px;
-	background: var(--light-color);
-	color: var(--dark-color-a);
 	border: 0;
 	font-size: 17px;
 }
@@ -42,14 +37,14 @@ a {
 
 .chat-container {
 	max-width: 1100px;
-	background: #fff;
+	background: rgb(255, 255, 255);
 	margin: 30px auto;
 	overflow: hidden;
 }
 
 .chat-header {
 	background: var(--dark-color-a);
-	color: #fff;
+	color: black;
 	border-top-left-radius: 5px;
 	border-top-right-radius: 5px;
 	padding: 15px;
@@ -65,7 +60,7 @@ a {
 
 .chat-sidebar {
 	background: var(--dark-color-b);
-	color: #fff;
+	color: black;
 	padding: 20px 20px 60px;
 	overflow-y: scroll;
 }
@@ -95,7 +90,6 @@ a {
 	padding: 10px;
 	margin-bottom: 15px;
 	background-color: var(--light-color);
-	border-radius: 5px;
 }
 
 .chat-messages .message .meta {
@@ -119,10 +113,11 @@ a {
 	display: flex;
 }
 
-.chat-form-container input[type='text'] {
+.chat-form-container input[type="text"] {
 	font-size: 16px;
 	padding: 5px;
-	height: 40px;
+	height: 30px;
+	border: none;
 	flex: 1;
 }
 
@@ -130,7 +125,7 @@ a {
 .join-container {
 	max-width: 500px;
 	margin: 80px auto;
-	color: #fff;
+	color: black;
 }
 
 .join-header {
@@ -159,7 +154,7 @@ a {
 	margin-bottom: 5px;
 }
 
-.join-main input[type='text'] {
+.join-main input[type="text"] {
 	font-size: 16px;
 	padding: 5px;
 	height: 40px;
@@ -176,6 +171,7 @@ a {
 .join-main .btn {
 	margin-top: 20px;
 	width: 100%;
+	border: 1px solid black;
 }
 
 @media (max-width: 700px) {
