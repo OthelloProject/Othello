@@ -4,6 +4,12 @@ let chatMessages = document.querySelector('.chat-messages');
 var roomName = document.getElementById('room-name');
 var userList = document.getElementById('users');
 
+/*
+ This can be accessed by going to /chat.html
+ and opening console, typing in "version".
+*/
+const version = "0.0.1";
+
 const { username, room } = Qs.parse(location.search, {
     ignoreQueryPrefix: true
 });
