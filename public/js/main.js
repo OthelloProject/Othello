@@ -10,7 +10,13 @@ const { username, room } = Qs.parse(location.search, {
 
 socket.on('message', message => {
     console.log(message);
-    outputMessage(message);
+
+    if (isStringURL(message.text)) {
+        outputLink(message);
+    } else {
+        outputMessage(message);
+    }
+
     chatMessages.scrollTop = chatMessages.scrollHeight;
 });
 
@@ -37,10 +43,14 @@ chatForm.addEventListener('submit', (e) => {
 function outputMessage(message) {
     let div = document.createElement('div');
     div.classList.add('message');
-    div.innerHTML = `<p class="meta">${message.username} <span>${message.time}</span></p>
-       <p class="text">
-           ${message.text}
-       </p>`;
+    div.innerHTML = `<p class="meta">${message.username} <span>${message.time}</span></p><p class="text">${message.text}</p>`;
+    document.querySelector('.chat-messages').appendChild(div);
+}
+
+function outputLink(message) {
+    let div = document.createElement('div');
+    div.classList.add('message');
+    div.innerHTML = `<p class="meta">${message.username} <span>${message.time}</span></p><a class="text" href=${message.text}>${message.text}</a>`;
     document.querySelector('.chat-messages').appendChild(div);
 }
 
@@ -50,4 +60,15 @@ function outputRoomName(room) {
 
 function outputUsers(users) {
     userList.innerHTML = `${users.map(user => user.username).join(' ')}`;
+}
+
+function isStringURL(string) {
+    let url;
+
+    try {
+        url = new URL(string);
+        return true;
+    } catch (_) {
+        return false;
+    }
 }
