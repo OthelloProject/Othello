@@ -93,11 +93,28 @@ a {
 }
 
 .chat-messages .message .meta {
+<<<<<<< Updated upstream
 	font-size: 15px;
 	font-weight: bold;
 	color: var(--dark-color-b);
 	opacity: 0.7;
 	margin-bottom: 7px;
+=======
+    font-size: 15px;
+    font-weight: bold;
+    color: var(--dark-color-b);
+    opacity: 0.7;
+    margin-bottom: 7px;
+}
+
+.chat-messages .message a {
+    text-decoration: none;
+    color: #000;
+}
+
+.chat-messages .message a:hover {
+    text-decoration: underline;
+>>>>>>> Stashed changes
 }
 
 .chat-messages .message .meta span {
