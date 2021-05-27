@@ -8,7 +8,7 @@ var userList = document.getElementById('users');
  This can be accessed by going to /chat.html
  and opening console, typing in "version".
 */
-const version = "0.0.1";
+const version = "1.0.2";
 
 const { username, room } = Qs.parse(location.search, {
     ignoreQueryPrefix: true
