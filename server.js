@@ -16,26 +16,16 @@ const io = socketio(server);
 io.on('connection', socket => {
     socket.on('joinRoom', ({ username, room }) => {
         let user = userJoin(socket.id, username, room);
-        let isUsernameTaken = false;
 
-        let users = getRoomUsers(user.room);
-        console.log(users);
+        socket.join(user.room);
 
-        users.forEach((user) => {
-            if (username == user.username) isUsernameTaken = true;
+        socket.emit('message', formatMessage(botName, "Welcome to Othello!"));
+        socket.broadcast.to(user.room).emit('message', formatMessage(botName, `${user.username} has joined the chat`));
+
+        io.to(user.room).emit('roomUsers', {
+            room: user.room,
+            users: getRoomUsers(user.room)
         });
-
-        if (!isUsernameTaken) {
-            socket.join(user.room);
-
-            socket.emit('message', formatMessage(botName, "Welcome to Othello!"));
-            socket.broadcast.to(user.room).emit('message', formatMessage(botName, `${user.username} has joined the chat`));
-
-            io.to(user.room).emit('roomUsers', {
-                room: user.room,
-                users: getRoomUsers(user.room)
-            });
-        }
     });
 
     socket.on('chatMessage', msg => {
