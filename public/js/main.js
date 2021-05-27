@@ -9,17 +9,12 @@ const { username, room } = Qs.parse(location.search, {
 });
 
 socket.on('message', message => {
-<<<<<<< Updated upstream
-    console.log(message);
-    outputMessage(message);
-=======
     if (isStringURL(message.text)) {
         outputLink(message);
     } else {
         outputMessage(message);
     }
 
->>>>>>> Stashed changes
     chatMessages.scrollTop = chatMessages.scrollHeight;
 });
 
