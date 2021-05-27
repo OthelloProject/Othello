@@ -15,26 +15,33 @@ const io = socketio(server);
 
 io.on('connection', socket => {
     socket.on('joinRoom', ({ username, room }) => {
-        const user = userJoin(socket.id, username, room);
+        let user = userJoin(socket.id, username, room);
+        let isUsernameTaken = false;
 
-        socket.join(user.room);
+        let users = getRoomUsers(user.room);
+        console.log(users);
 
-        socket.emit('message', formatMessage(botName, "Welcome to Othello!"))
-        socket.broadcast.to(user.room).emit('message', formatMessage(botName, `${user.username} has joined the chat`));
+        users.forEach((user) => {
+            if (username == user.username) isUsernameTaken = true;
+        });
 
-        //sends the room info and stuff
-        io.to(user.room).emit('roomUsers', {
-            room: user.room,
-            users: getRoomUsers(user.room)
-        })
+        if (!isUsernameTaken) {
+            socket.join(user.room);
 
+            socket.emit('message', formatMessage(botName, "Welcome to Othello!"));
+            socket.broadcast.to(user.room).emit('message', formatMessage(botName, `${user.username} has joined the chat`));
 
+            io.to(user.room).emit('roomUsers', {
+                room: user.room,
+                users: getRoomUsers(user.room)
+            });
+        }
     });
 
     socket.on('chatMessage', msg => {
         const user = getCurrentUser(socket.id);
         io.emit('message', formatMessage(user.username, msg));
-    })
+    });
 
     socket.on('disconnect', () => {
         const user = userLeave(socket.id);
@@ -47,13 +54,13 @@ io.on('connection', socket => {
         io.to(user.room).emit('roomUsers', {
             room: user.room,
             users: getRoomUsers(user.room)
-        })
+        });
 
-    })
-})
+    });
+});
 
-app.use(express.static(path.join(__dirname, 'public')))
+app.use(express.static(path.join(__dirname, 'public')));
 
 let port = process.env.PORT || 3000;
 
-server.listen(port, () => console.log(chalk.green(`Server is running` + chalk.red`\nPORT: ${port}` + chalk.magenta`\nTIME: ${date}`)));
+server.listen(port, () => console.log(chalk.green(`Server is running` + chalk.red `\nPORT: ${port}` + chalk.magenta `\nTIME: ${date}`)));
