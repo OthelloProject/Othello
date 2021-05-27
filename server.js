@@ -15,6 +15,8 @@ const io = socketio(server);
 
 io.on('connection', socket => {
     socket.on('joinRoom', ({ username, room }) => {
+        username = clean(username);
+
         let user = userJoin(socket.id, username, room);
 
         socket.join(user.room);
@@ -50,6 +52,15 @@ io.on('connection', socket => {
 });
 
 app.use(express.static(path.join(__dirname, 'public')));
+
+
+function clean(str) {
+    if ((str === null) || (str === ''))
+        return false;
+    else
+        str = str.toString();
+    return str.replace(/(<([^>]+)>)/ig, '');
+}
 
 let port = process.env.PORT || 3000;
 

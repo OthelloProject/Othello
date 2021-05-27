@@ -1,8 +1,8 @@
 const socket = io();
-const chatForm = document.getElementById('chat-form');
+var chatForm = document.getElementById('chat-form');
 let chatMessages = document.querySelector('.chat-messages');
-const roomName = document.getElementById('room-name');
-const userList = document.getElementById('users');
+var roomName = document.getElementById('room-name');
+var userList = document.getElementById('users');
 
 const { username, room } = Qs.parse(location.search, {
     ignoreQueryPrefix: true
@@ -41,17 +41,14 @@ chatForm.addEventListener('submit', (e) => {
 function outputMessage(message) {
     let div = document.createElement('div');
     div.classList.add('message');
-    div.innerHTML = `<p class="meta">${message.username} <span>${message.time}</span></p>
-       <p class="text">
-           ${message.text}
-       </p>`;
+    div.innerHTML = `<p class="meta">${message.username} <span>${message.time}</span></p><p class="text">${clean(message.text)} </p>`;
     document.querySelector('.chat-messages').appendChild(div);
 }
 
 function outputLink(message) {
     let div = document.createElement('div');
     div.classList.add('message');
-    div.innerHTML = `<p class="meta">${message.username} <span>${message.time}</span></p><a class="text" href=${message.text}>${message.text}</a>`;
+    div.innerHTML = `<p class="meta">${message.username} <span>${message.time}</span></p><a class="text" href="${message.text}" target="_blank">${message.text}</a>`;
     document.querySelector('.chat-messages').appendChild(div);
 }
 
@@ -60,7 +57,10 @@ function outputRoomName(room) {
 }
 
 function outputUsers(users) {
+    console.log(users.length);
     userList.innerHTML = `${users.map(user => user.username).join(' ')}`;
+    document.getElementById('user-count').innerHTML = `Users (${users.length})`;
+
 }
 
 function isStringURL(string) {
@@ -72,4 +72,12 @@ function isStringURL(string) {
     } catch (_) {
         return false;
     }
+}
+
+function clean(str) {
+    if ((str === null) || (str === ''))
+        return false;
+    else
+        str = str.toString();
+    return str.replace(/(<([^>]+)>)/ig, '');
 }
