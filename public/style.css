@@ -21,10 +21,6 @@ ul {
     list-style: none;
 }
 
-a {
-    text-decoration: none;
-}
-
 .btn {
     cursor: pointer;
     padding: 5px 15px;
@@ -98,6 +94,11 @@ a {
     color: var(--dark-color-b);
     opacity: 0.7;
     margin-bottom: 7px;
+}
+
+.chat-messages .message a {
+    text-decoration: none;
+    color: #000;
 }
 
 .chat-messages .message a:hover {

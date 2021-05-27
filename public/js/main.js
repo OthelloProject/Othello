@@ -48,10 +48,28 @@ function outputMessage(message) {
     document.querySelector('.chat-messages').appendChild(div);
 }
 
+function outputLink(message) {
+    let div = document.createElement('div');
+    div.classList.add('message');
+    div.innerHTML = `<p class="meta">${message.username} <span>${message.time}</span></p><a class="text" href=${message.text}>${message.text}</a>`;
+    document.querySelector('.chat-messages').appendChild(div);
+}
+
 function outputRoomName(room) {
     roomName.innerHTML = room;
 }
 
 function outputUsers(users) {
     userList.innerHTML = `${users.map(user => user.username).join(' ')}`;
+}
+
+function isStringURL(string) {
+    let url;
+
+    try {
+        url = new URL(string);
+        return true;
+    } catch (_) {
+        return false;
+    }
 }
